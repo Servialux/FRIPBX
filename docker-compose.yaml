@@ -17,10 +17,11 @@ services:
     ports:
       - 3306:3306/tcp 
   freepbx:
-    image: "tiredofit/freepbx:latest"
+    image: "epandi/asterisk-freepbx-arm:17.15-latest"
     container_name: freepbx
     restart: unless-stopped
     environment:
+      - DB_EMBEDDED=FALSE
       - DB_HOST=mariadb
       - DB_PORT=3306
       - DB_NAME=freepbx
@@ -32,4 +33,17 @@ services:
       - ENABLE_SSL=FALSE
       - ENABLE_XMPP=FALSE
       - ENABLE_VM_TRANSCRIBE=FALSE
-          
+      - RTP_START=18000
+      - RTP_FINISH=18100
+    ports:
+      - 80:80
+      - 5060:5060/udp
+      - 5160:5160/udp
+      - 18000-18100:18000-18100/udp
+     #### Flash Operator Panel
+      - 4445:4445
+    network_mode: "bridge"
+    ### These final lines are for Fail2ban. If you don't want, comment and also add ENABLE_FAIL2BAN=FALSE to your environment
+    cap_add:
+      - NET_ADMIN
+    privileged: true
