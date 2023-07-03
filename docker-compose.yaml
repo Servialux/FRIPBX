@@ -1,0 +1,35 @@
+version: '2.1'
+volumes:
+    config:
+services:
+  mariadb:
+    image: "lscr.io/linuxserver/mariadb:latest"
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris # Specify a timezone to use EG Europe/London.
+      - PUID=1000 # for UserID
+      - PGID=1000 # for GroupID
+      - MYSQL_USER=user # This user will have superuser access to the database specified by MYSQL_DATABASE (do not use root here).
+      - MYSQL_ROOT_PASSWORD=Serv1991-1991chocolat-praline-menthe # Set this to root password for installation (minimum 4 characters).
+      - MYSQL_PASSWORD=Serv1991-1991chocolat-praline-menthe # Set this to the password you want to use for you MYSQL_USER (minimum 4 characters).
+      - MYSQL_DATABASE=freepbx # Specify the name of a database to be created on image startup.
+    ports:
+      - 3306:3306/tcp 
+  freepbx:
+    image: "tiredofit/freepbx:(imagetag)"
+    container_name: freepbx
+    restart: unless-stopped
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_NAME=freepbx
+      - DB_USER=user
+      - DB_PASS=Serv1991-1991chocolat-praline-menthe
+      - TIMEZONE=Europe/Paris
+      - ENABLE_FAIL2BAN=TRUE
+      - ENABLE_FOP=FALSE
+      - ENABLE_SSL=FALSE
+      - ENABLE_XMPP=FALSE
+      - ENABLE_VM_TRANSCRIBE=FALSE
+          

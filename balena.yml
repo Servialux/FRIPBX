@@ -1,0 +1,34 @@
+name: FreePBX
+description: >-
+  Balena docker Freepbx
+type: sw.application
+post-provisioning: >-
+  Un simple IPBX pret a fonctionner pour des interphones
+data:
+  applicationConfigVariables:
+    - BALENA_HOST_CONFIG_gpu_mem: 32
+    - BALENA_HOST_CONFIG_dtoverlay: "vc4-fkms-v3d"
+  applicationEnvironmentVariables:
+    - SHOW_CURSOR: 0
+    - CONTROL_TV: 0
+    - ENABLE_GPU: 0
+    - KIOSK: 1
+    - PERSISTENT: 1
+    - PORTAL_SSID: ServiaView
+    - PORTAL_PASSPHRASE: Serv@1991!
+    - ACTIVITY_TIMEOUT: 600
+    - LAUNCH_URL: ''
+    - ROTATE_DISPLAY: normal
+    - WINDOW_POSITION: '0,0'
+    - LOCAL_HTTP_DELAY: 0
+    - FBCP_DISPLAY: ''
+  defaultDeviceType: raspberrypi4-64
+  supportedDeviceTypes:
+    - raspberrypi4-64
+    - fincm3
+    - raspberrypi3
+    - raspberrypi3-64
+    - intel-nuc
+    - genericx86-64-ext
+    - raspberrypi400-64
+version: 1.0.0
