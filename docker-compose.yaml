@@ -17,7 +17,7 @@ services:
     ports:
       - 3306:3306/tcp 
   freepbx:
-    image: "tiredofit/freepbx:(imagetag)"
+    image: "tiredofit/freepbx:latest"
     container_name: freepbx
     restart: unless-stopped
     environment:
